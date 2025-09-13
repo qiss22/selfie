@@ -1,0 +1,16 @@
+[versions]
+kotlin = "1.9.20"
+compose = "1.5.10"
+coroutines = "1.7.3"
+koin = "3.5.0"
+
+[libraries]
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version = "1.1.2" }
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+
+[plugins]
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version = "8.1.4" }
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose" }
