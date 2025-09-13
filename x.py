@@ -32,14 +32,14 @@ SQLDELIGHT_VERSION = "2.0.2"
 
 # Templates as multiline strings
 ROOT_BUILD_GRADLE_KTS = """// Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
+plugins {{
     kotlin("multiplatform") version "{kotlin_version}" apply false
     id("com.android.application") version "8.8.0" apply false
     id("com.android.library") version "8.8.0" apply false
     id("org.jetbrains.compose") version "{compose_mp_version}" apply false
     id("app.cash.sqldelight") version "{sqldelight_version}" apply false
     id("maven-publish") apply false
-}
+}}
 
 allprojects {{
     repositories {{
@@ -254,6 +254,7 @@ def mkdir_p(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
 def write_file(path: Path, content: str):
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content)
     print(f"Created {path}")
 

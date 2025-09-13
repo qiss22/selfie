@@ -97,8 +97,8 @@ COPY --from=cacher /app/target target
 RUN cargo build --release
 
 FROM debian:bookworm-slim
-COPY --from=builder /app/target/release/{service_name} /usr/local/bin/
-CMD ["{service_name}"]
+COPY --from=builder /app/target/release/auth-service /usr/local/bin/
+CMD ["auth-service"]
 """.format(rust_version=RUST_VERSION)
 
 SERVICE_CARGO_TOML_TEMPLATE = """[package]
@@ -348,8 +348,12 @@ def main():
     write_file(root_dir / "README.md", "# Selfie Backend\nRust microservices monorepo.")
     
     # Init Cargo workspace
-    subprocess.run(["cargo", "init", "--lib"], cwd=root_dir, check=True)
-    (root_dir / "src").rmdir()  # Remove dummy lib
+    try:
+        subprocess.run(["cargo", "init", "--lib"], cwd=root_dir, check=True)
+        if (root_dir / "src").exists():
+            shutil.rmtree(root_dir / "src")  # Remove dummy lib
+    except subprocess.CalledProcessError:
+        print("Cargo workspace already initialized, continuing...")
     
     # Shared libs
     shared_dir = root_dir / "shared"

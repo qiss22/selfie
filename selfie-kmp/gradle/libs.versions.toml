@@ -1,0 +1,17 @@
+[versions]
+kotlin = "2.0.20"
+compose = "1.6.10"
+ktor = "2.3.12"
+sqldelight = "2.0.2"
+android-gradle-plugin = "8.8.0"
+hilt = "2.52"
+room = "2.6.1"
+stripe = "20.44.0"  # For shop
+
+[libraries]
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

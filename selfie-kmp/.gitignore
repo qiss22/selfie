@@ -1,0 +1,10 @@
+# Gradle
+.gradle
+build/
+.idea/
+.DS_Store
+iosApp/build/
+iosApp/**/*.xcworkspace
+iosApp/iosApp.xcworkspace/
+node_modules/
+DerivedData/

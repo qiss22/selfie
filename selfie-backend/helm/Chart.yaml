@@ -1,0 +1,4 @@
+apiVersion: v2
+name: selfie
+description: Selfie Backend Helm Chart
+version: 0.1.0

@@ -1,0 +1,16 @@
+[package]
+name = "admin-service"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio.workspace = true
+axum.workspace = true
+sea-orm.workspace = true
+tracing.workspace = true
+serde.workspace = true
+# Add more as needed
+
+[[bin]]
+name = "admin-service"
+path = "src/main.rs"
