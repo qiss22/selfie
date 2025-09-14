@@ -1,15 +1,35 @@
-package com.selfie.designsystem
+package design.tokens
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
+
+// Add Cabinet Grotesk font files in /resources/fonts/ (TTF/OTF)
+val CabinetGrotesk = FontFamily(
+    Font("fonts/cabinetgrotesk-regular.ttf"),
+    Font("fonts/cabinetgrotesk-medium.ttf"),
+    Font("fonts/cabinetgrotesk-bold.ttf")
+)
 
 val SelfieTypography = Typography(
-    headlineLarge = TextStyle(fontWeight = FontWeight.Bold, fontSize = 32.sp),
-    headlineMedium = TextStyle(fontWeight = FontWeight.Bold, fontSize = 28.sp),
-    titleLarge = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 22.sp),
-    bodyLarge = TextStyle(fontWeight = FontWeight.Normal, fontSize = 16.sp),
-    bodyMedium = TextStyle(fontWeight = FontWeight.Normal, fontSize = 14.sp),
-    labelMedium = TextStyle(fontWeight = FontWeight.Medium, fontSize = 12.sp)
+    displayLarge = TextStyle(
+        fontFamily = CabinetGrotesk,
+        fontSize = 36.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = CabinetGrotesk,
+        fontSize = 24.sp
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = CabinetGrotesk,
+        fontSize = 16.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = CabinetGrotesk,
+        fontSize = 14.sp
+    )
 )
