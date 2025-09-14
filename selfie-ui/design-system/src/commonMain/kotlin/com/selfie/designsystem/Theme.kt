@@ -1,32 +1,24 @@
-package com.selfie.designsystem
+package design.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import design.tokens.SelfieColors
+import design.tokens.SelfieSpacing
+import design.tokens.SelfieTypography
 
 @Composable
-fun SelfieTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
-    val colorScheme = if (darkTheme) {
-        darkColorScheme(
-            primary = SelfieColors.PrimaryDark,
-            secondary = SelfieColors.SecondaryDark,
-            background = SelfieColors.BackgroundDark
-        )
-    } else {
-        lightColorScheme(
-            primary = SelfieColors.Primary,
-            secondary = SelfieColors.Secondary,
-            background = SelfieColors.Background
-        )
-    }
-    
+fun SelfieTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = androidx.compose.material3.lightColorScheme(
+            primary = SelfieColors.PrimaryBrown,
+            secondary = SelfieColors.AccentGray,
+            background = SelfieColors.LightGray,
+            surface = SelfieColors.White,
+            onPrimary = SelfieColors.White,
+            onSecondary = SelfieColors.Black,
+            onBackground = SelfieColors.Black,
+            onSurface = SelfieColors.PrimaryBrown
+        ),
         typography = SelfieTypography,
         content = content
     )
