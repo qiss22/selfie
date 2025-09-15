@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package selfie.auth.v1;
+
+import "common.proto";
+
+service AuthService {
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc Refresh(RefreshRequest) returns (RefreshResponse);
+    rpc Verify2FA(Verify2FARequest) returns (Verify2FAResponse);
+    rpc Setup2FA(Setup2FARequest) returns (Setup2FAResponse);
+    rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+    rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
+    rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse);
+}
+
+message RegisterRequest {
+    string email = 1;
+    string passphrase = 2;
+    string username = 3;
+}
+
+message RegisterResponse {
+    string user_id = 1;
+    string verification_token = 2;
+}
+
+message LoginRequest {
+    string email = 1;
+    string passphrase = 2;
+}
+
+message LoginResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    bool requires_2fa = 3;
+}
+
+message RefreshRequest {
+    string refresh_token = 1;
+}
+
+message RefreshResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+message Verify2FARequest {
+    string email = 1;
+    string code = 2;
+}
+
+message Verify2FAResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+message Setup2FARequest {
+    string email = 1;
+}
+
+message Setup2FAResponse {
+    string secret = 1;
+    string qr_code = 2;
+}
+
+message ValidateTokenRequest {
+    string token = 1;
+}
+
+message ValidateTokenResponse {
+    bool valid = 1;
+    string user_id = 2;
+}
+
+message ResetPasswordRequest {
+    string email = 1;
+}
+
+message ResetPasswordResponse {
+    bool success = 1;
+}
+
+message VerifyEmailRequest {
+    string token = 1;
+}
+
+message VerifyEmailResponse {
+    bool success = 1;
+}

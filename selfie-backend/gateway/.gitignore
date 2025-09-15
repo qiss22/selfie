@@ -1,0 +1,10 @@
+# Selfie Gateway
+.env
+target/
+**/*.rs.bk
+Cargo.lock
+.idea/
+.vscode/
+*.pem
+*.key
+*.crt

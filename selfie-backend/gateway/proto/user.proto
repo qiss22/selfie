@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package selfie.user.v1;
+
+import "common.proto";
+
+service UserService {
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+    rpc UpdateAvatar(UpdateAvatarRequest) returns (UpdateAvatarResponse);
+    rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
+    rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+    rpc SearchUsers(SearchUsersRequest) returns (SearchUsersResponse);
+    rpc BlockUser(BlockUserRequest) returns (BlockUserResponse);
+    rpc UnblockUser(UnblockUserRequest) returns (UnblockUserResponse);
+    rpc GetBlockedUsers(GetBlockedUsersRequest) returns (GetBlockedUsersResponse);
+}
+
+message User {
+    string id = 1;
+    string username = 2;
+    string display_name = 3;
+    string avatar_url = 4;
+    string bio = 5;
+    bool verified = 6;
+    selfie.common.v1.Timestamp created_at = 7;
+    selfie.common.v1.Timestamp updated_at = 8;
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message GetUserResponse {
+    User user = 1;
+}
+
+message UpdateUserRequest {
+    string user_id = 1;
+    optional string display_name = 2;
+    optional string bio = 3;
+}
+
+message UpdateUserResponse {
+    User user = 1;
+}
+
+message UpdateAvatarRequest {
+    string user_id = 1;
+    bytes avatar_data = 2;
+    string content_type = 3;
+}
+
+message UpdateAvatarResponse {
+    string avatar_url = 1;
+}
+
+message Profile {
+    User user = 1;
+    int32 followers_count = 2;
+    int32 following_count = 3;
+    int32 posts_count = 4;
+    bool is_following = 5;
+    bool is_blocked = 6;
+}
+
+message GetProfileRequest {
+    string user_id = 1;
+    string viewer_id = 2;
+}
+
+message GetProfileResponse {
+    Profile profile = 1;
+}
+
+message UpdateProfileRequest {
+    string user_id = 1;
+    optional string display_name = 2;
+    optional string bio = 3;
+}
+
+message UpdateProfileResponse {
+    Profile profile = 1;
+}
+
+message SearchUsersRequest {
+    string query = 1;
+    string viewer_id = 2;
+    selfie.common.v1.PaginationRequest pagination = 3;
+}
+
+message SearchUsersResponse {
+    repeated Profile profiles = 1;
+    selfie.common.v1.PaginationResponse pagination = 2;
+}
+
+message BlockUserRequest {
+    string user_id = 1;
+    string blocked_user_id = 2;
+}
+
+message BlockUserResponse {
+    bool success = 1;
+}
+
+message UnblockUserRequest {
+    string user_id = 1;
+    string blocked_user_id = 2;
+}
+
+message UnblockUserResponse {
+    bool success = 1;
+}
+
+message GetBlockedUsersRequest {
+    string user_id = 1;
+    selfie.common.v1.PaginationRequest pagination = 2;
+}
+
+message GetBlockedUsersResponse {
+    repeated Profile blocked_users = 1;
+    selfie.common.v1.PaginationResponse pagination = 2;
+}

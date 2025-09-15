@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package selfie.chat.v1;
+
+import "common.proto";
+
+service ChatService {
+    rpc CreateChat(CreateChatRequest) returns (CreateChatResponse);
+    rpc GetChat(GetChatRequest) returns (GetChatResponse);
+    rpc ListChats(ListChatsRequest) returns (ListChatsResponse);
+    rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+    rpc GetMessages(GetMessagesRequest) returns (GetMessagesResponse);
+    rpc MarkAsRead(MarkAsReadRequest) returns (MarkAsReadResponse);
+    rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageResponse);
+    rpc StreamMessages(StreamMessagesRequest) returns (stream StreamMessagesResponse);
+}
+
+enum ChatType {
+    CHAT_TYPE_UNSPECIFIED = 0;
+    CHAT_TYPE_DIRECT = 1;
+    CHAT_TYPE_GROUP = 2;
+}
+
+message Chat {
+    string id = 1;
+    ChatType type = 2;
+    string name = 3;
+    repeated string participant_ids = 4;
+    Message last_message = 5;
+    int32 unread_count = 6;
+    selfie.common.v1.Timestamp created_at = 7;
+    selfie.common.v1.Timestamp updated_at = 8;
+}
+
+message Message {
+    string id = 1;
+    string chat_id = 2;
+    string sender_id = 3;
+    string content = 4;
+    repeated string media_urls = 5;
+    repeated string read_by = 6;
+    selfie.common.v1.Timestamp created_at = 7;
+    optional selfie.common.v1.Timestamp edited_at = 8;
+}
+
+message CreateChatRequest {
+    ChatType type = 1;
+    optional string name = 2;
+    repeated string participant_ids = 3;
+}
+
+message CreateChatResponse {
+    Chat chat = 1;
+}
+
+message GetChatRequest {
+    string chat_id = 1;
+    string user_id = 2;
+}
+
+message GetChatResponse {
+    Chat chat = 1;
+}
+
+message ListChatsRequest {
+    string user_id = 1;
+    selfie.common.v1.PaginationRequest pagination = 2;
+}
+
+message ListChatsResponse {
+    repeated Chat chats = 1;
+    selfie.common.v1.PaginationResponse pagination = 2;
+}
+
+message SendMessageRequest {
+    string chat_id = 1;
+    string sender_id = 2;
+    string content = 3;
+    repeated string media_ids = 4;
+}
+
+message SendMessageResponse {
+    Message message = 1;
+}
+
+message GetMessagesRequest {
+    string chat_id = 1;
+    string user_id = 2;
+    selfie.common.v1.PaginationRequest pagination = 3;
+}
+
+message GetMessagesResponse {
+    repeated Message messages = 1;
+    selfie.common.v1.PaginationResponse pagination = 2;
+}
+
+message MarkAsReadRequest {
+    string chat_id = 1;
+    string user_id = 2;
+    string last_message_id = 3;
+}
+
+message MarkAsReadResponse {
+    bool success = 1;
+}
+
+message DeleteMessageRequest {
+    string message_id = 1;
+    string user_id = 2;
+}
+
+message DeleteMessageResponse {
+    bool success = 1;
+}
+
+message StreamMessagesRequest {
+    string user_id = 1;
+    repeated string chat_ids = 2;
+}
+
+message StreamMessagesResponse {
+    Message message = 1;
+}
