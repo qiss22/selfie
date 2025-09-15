@@ -4,12 +4,32 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-tokio.workspace = true
-axum.workspace = true
-sea-orm.workspace = true
-tracing.workspace = true
-serde.workspace = true
-# Add more as needed
+tokio = { version = "1.36", features = ["full"] }
+axum = { version = "0.7", features = ["headers", "macros"] }
+foundationdb = { version = "0.8", features = ["embedded-fdb-include"] }
+tower = { version = "0.4", features = ["limit", "timeout"] }
+tower-http = { version = "0.5", features = ["trace", "cors", "compression", "request-id"] }
+argon2 = { version = "0.5", features = ["std"] }
+rand = "0.8"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+time = { version = "0.3", features = ["serde"] }
+uuid = { version = "1.7", features = ["v4", "serde"] }
+tracing = "0.1"
+jsonwebtoken = "9.2"
+ed25519-dalek = { version = "2.1", features = ["rand_core"] }
+totp-rs = { version = "5.4", features = ["qr"] }
+base32 = "0.4"
+qrcode = "0.13"
+lettre = { version = "0.11", features = ["tokio1-rustls-tls", "builder", "hostname", "smtp-transport", "pool"] }
+handlebars = "5.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+thiserror = "1.0"
+validator = { version = "0.16", features = ["derive"] }
+zxcvbn = "2.2"  # Password strength estimation
+futures = "0.3"
+async-trait = "0.1"
+bytes = "1.5"
 
 [[bin]]
 name = "auth-service"
